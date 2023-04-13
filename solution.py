@@ -30,6 +30,6 @@ def solution(x_success: int,
 
     # Сравниваем с критическим значением z_crit
     if z > z_crit:
-        return False
-    else:
         return True
+    else:
+        return False
