@@ -1,8 +1,8 @@
 import pandas as pd
 import numpy as np
+from scipy.stats import norm
 
-
-chat_id = 123456 # Ваш chat ID, не меняйте название переменной
+chat_id = 378114682 # Ваш chat ID, не меняйте название переменной
 
 def solution(x_success: int, 
              x_cnt: int, 
@@ -11,4 +11,25 @@ def solution(x_success: int,
     # Измените код этой функции
     # Это будет вашим решением
     # Не меняйте название функции и её аргументы
-    return ... # Ваш ответ, True или False
+    
+    alpha = 0.07
+    
+    # Вычисляем доли продаж
+    p1 = x_success / x_cnt
+    p2 = y_success / y_cnt
+   
+    # Вычисляем стандартную ошибку разности долей
+    P = (x_success + y_success) / (x_cnt + y_cnt)
+    SE = np.sqrt(P*(1-P)*(1/x_cnt + 1/y_cnt))
+
+    # Вычисляем z-статистику
+    z = (p2 - p1) / SE
+
+    # Вычисляем критическое значение z-статистики
+    z_crit = norm.ppf(1-alpha/2)
+
+    # Сравниваем с критическим значением z_crit
+    if z > z_crit:
+        return False
+    else:
+        return True
